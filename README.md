@@ -67,3 +67,11 @@ python main.py
 - Creating embeddings and storing them in ChromaDB
 
 - Retrieving context and generating answers using an LLM
+
+------------------------------------------------------------------------------------------------------------------------------
+
+# Example output
+```
+Query: How many runs did Brevis score against australia in the 2nd T20i?
+Answer: Dewald Brevis scored an unbeaten 125 runs against Australia in the 2nd T20I. His innings, which came off 56 deliveries, included 12 fours and 8 sixes.
+```
