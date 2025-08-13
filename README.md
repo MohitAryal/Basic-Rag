@@ -1,4 +1,4 @@
-# Day 1: Basic RAG with LangChain
+# Basic RAG with LangChain
 
 ## Goal
 Build a simple Retrieval-Augmented Generation (RAG) pipeline that:
@@ -27,6 +27,7 @@ Build a simple Retrieval-Augmented Generation (RAG) pipeline that:
 │── sample_document.txt # Sample document for testing
 │── main.py # Main script
 │── requirements.txt # Python dependencies
+└── README.md # Project documentation
 ```
 ----------------------------------------------------------------------------------------------------------------------
 
