@@ -27,7 +27,6 @@ across runs, avoiding unnecessary recomputation.
 ## Project Structure
 
     project/
-    │── chroma/                       # Persistent ChromaDB storage
     │── sample_documents.txt          # Store your text files here
     │── main.py                       # RAG pipeline implementation
     │── .env                          # Environment variables
@@ -75,7 +74,7 @@ GROQ_API_KEY=your_groq_api_key
 
 -   Python 3.10+
 -   LangChain
--   ChromaDB
+-   LangChain Chroma
 -   HuggingFace Transformers
 -   LangChain Groq
 -   dotenv
