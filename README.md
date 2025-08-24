@@ -27,12 +27,12 @@ across runs, avoiding unnecessary recomputation.
 ## Project Structure
 
     project/
-    │── chroma/             # Persistent ChromaDB storage
-    │── documents/          # Store your text files here
-    │── main.py             # RAG pipeline implementation
-    │── .env                # Environment variables
-    │── requirements.txt    # Dependencies
-    │── README_Text.md      # Documentation
+    │── chroma/                       # Persistent ChromaDB storage
+    │── sample_documents.txt          # Store your text files here
+    │── main.py                       # RAG pipeline implementation
+    │── .env                          # Environment variables
+    │── requirements.txt              # Dependencies
+    │── README_Text.md                # Documentation
 
 ------------------------------------------------------------------------
 
