@@ -5,7 +5,7 @@ from langchain_chroma import Chroma
 from langchain_groq import ChatGroq
 from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -47,13 +47,12 @@ else:
     loader = TextLoader(document_path)
     documents = loader.load()
 
-    splitter = RecursiveCharacterTextSplitter(chunk_size=700, chunk_overlap=50)
+    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
     chunks = splitter.split_documents(documents)
 
     embeddings = HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2')
 
     vector_store.add_documents(documents=chunks)
-    vector_store._client.persist()
 
     print(f"Created collection with {len(chunks)} chunks")
 
@@ -61,9 +60,11 @@ else:
 prompt = ChatPromptTemplate.from_messages([
     ('system', '''
     You are a helpful assistant that uses the context given in triple backticks to provide answers to user queries. 
-    - If the context provided is not enough to answer the question, don't just make up an answer, insted say that the context is not enough.
+    - If the context provided is not enough to answer the question, don't just make up an answer, instead say that the context is not enough.
+    - You may reach a conclusion with the context provided. Example: taking a wicket = dismissal.
     - Context = ```{context}```
     '''),
+    MessagesPlaceholder('messages'),
     ('human', '{input}')
 ])
 
@@ -72,7 +73,17 @@ llm = ChatGroq(model="deepseek-r1-distill-llama-70b", temperature=0, reasoning_f
 combine_docs_chain = create_stuff_documents_chain(llm, prompt)
 qa_chain = create_retrieval_chain(combine_docs_chain=combine_docs_chain, retriever=vector_store.as_retriever())
 
-query = 'How many runs did Brevis score against australia in the 2nd T20i?'
-response = qa_chain.invoke({'input': query})
+messages = []
 
-print(response['answer'])
+while(1):
+    query = input('Enter your query : ')
+    
+    if query.lower() in ['exit', 'quit', 'q']:
+        break
+    
+    response = qa_chain.invoke({'input': query, 'messages': messages})
+
+    messages.append(('human', query))
+    messages.append(('ai', response['answer']))
+    
+    print(response['answer'])
