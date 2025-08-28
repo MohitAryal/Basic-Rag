@@ -40,8 +40,8 @@ across runs, avoiding unnecessary recomputation.
 
 ``` bash
 # Clone this repository
-git clone https://github.com/MohitAryal/Text-Based-Rag
-cd Text-Based-Rag
+git clone https://github.com/MohitAryal/Text-Based-RAG
+cd Text-Based-RAG
 
 # Create and activate virtual environment
 python -m venv venv
